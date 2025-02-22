@@ -76,19 +76,19 @@ if uploaded_files:
              if conversion_type =="CSV":
                   df.to.csv(buffer,index= False)
                   file_name = file.name.replace(file_ext, ".csv")
-                  mine_type = "text/csv"
+                  mime_type = "text/csv"
 
              elif conversion_type == "Excel":
                   df.to.csv(buffer,index= False)
                   file_name = file.name.replace(file_ext, ".csv")
-                  mine_type = "application/vnd.openxmlformats.officdocument.spreadsheetml.sheet"
+                  mime_type = "application/vnd.openxmlformats.officdocument.spreadsheetml.sheet"
              buffer.seek(0)
 
              st.download_button(
                 label=f"Downloaad {file.name} as {conversion_type}",
                 data=buffer,
                 file_name=file_name,
-                mine=mine_type
+                mime=mime_type
             )
 
 st.success("all files procesed successfully!")
