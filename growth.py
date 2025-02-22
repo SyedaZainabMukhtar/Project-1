@@ -34,7 +34,7 @@ if uploaded_files:
         elif file_ext == "xlsx":
             df = pd.read_excel(file)
         else:
-            st.error(f"Unspported file type: {file_ext}")
+            st.error(f"Unsupported file type: {file_ext}")
             continue
 
         #File Details
