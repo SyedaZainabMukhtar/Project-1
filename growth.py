@@ -20,7 +20,7 @@ st.markdown(
     
 #Title and Description 
 st.title("Datasweeper Sterling Integrator By Syeda Zainab Mukhtar ")
-st.write("Transform your files between CSV and Excel fromats with built-in data cleaning and visualization")
+st.write("Transform your files between CSV and Excel formats with built-in data cleaning and visualization")
 
 #file uploader 
 uploaded_files = st.file_uploader("Upload your files (except CSV or Excel formats):", type["csv", "xlsx"] , accept_multiple_files=(True))
