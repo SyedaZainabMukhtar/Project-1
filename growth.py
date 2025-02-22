@@ -10,7 +10,7 @@ st.markdown(
     """
     <style>
     .stApp{ 
-        backround-color: black;
+        background-color: black;
         color: white;
         }
         </style>
@@ -23,7 +23,7 @@ st.title("Datasweeper Sterling Integrator By Syeda Zainab Mukhtar ")
 st.write("Transform your files between CSV and Excel formats with built-in data cleaning and visualization")
 
 #file uploader 
-uploaded_files = st.file_uploader("Upload your files (except CSV or Excel formats):", type=["csv", "xlsx"] , accept_multiple_files=(True))
+uploaded_files = st.file_uploader("Upload your files (except csv or Excel formats):", type=["csv", "xlsx"] , accept_multiple_files=(True))
 
 if uploaded_files:
     for file in uploaded_files:
@@ -31,7 +31,7 @@ if uploaded_files:
 
         if file_ext == ".csv":
             df = pd.read_csv(file)
-        elif file_ext == "xlsx":
+        elif file_ext == ".xlsx":
             df = pd.read_excel(file)
         else:
             st.error(f"Unsupported file type: {file_ext}")
@@ -70,22 +70,22 @@ if uploaded_files:
 
         #Conversion Options
         st.subheader("Conversion Options")
-        conversion_type = st.radio(f"Convert{file.name} to", ["CVS" , "Excel"] , key=file.name)
-        if st.button(f"Convert{file.name}"):
+        conversion_type = st.radio(f"Convert {file.name} to", ["CVS" , "Excel"] , key=file.name)
+        if st.button(f"Convert {file.name}"):
              buffer = BytesIO()
              if conversion_type =="CSV":
-                  df.to.csv(buffer,index= False)
+                  df.to_csv(buffer, index= False)
                   file_name = file.name.replace(file_ext, ".csv")
                   mime_type = "text/csv"
 
              elif conversion_type == "Excel":
-                  df.to_excel(buffer,index= False)
+                  df.to_excel(buffer, index= False)
                   file_name = file.name.replace(file_ext, ".xlsx")
-                  mime_type = "application/vnd.openxmlformats.officdocument.spreadsheetml.sheet"
+                  mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
              buffer.seek(0)
 
              st.download_button(
-                label=f"Downloaad {file.name} as {conversion_type}",
+                label=f"Download {file.name} as {conversion_type}",
                 data=buffer,
                 file_name=file_name,
                 mime=mime_type
