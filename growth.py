@@ -68,30 +68,29 @@ if uploaded_files:
         if st.checkbox(f"show visualization for {file.name}"):
             st.bar_chart(df.select_dtypes(include='number').iloc[:,:2])
 
-            # Conversion Options
+         # Conversion Options
         st.subheader("Conversion Options")
         conversion_type = st.radio(f"Convert {file.name} to:", ["CSV", "Excel"], key=file.name)
-
         if st.button(f"Convert {file.name}"):
-          buffer = BytesIO()
-
+           buffer = BytesIO()
          # Assign correct file extension
-        if conversion_type == "CSV":
-          df.to_csv(buffer, index=False)
-          file_name = file.name.rsplit(".", 1)[0] + ".csv"
-          mime_type = "text/csv"
-        elif conversion_type == "Excel":
-          df.to_excel(buffer, index=False, engine='xlsxwriter')
-          file_name = file.name.rsplit(".", 1)[0] + ".xlsx"
-          mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+           if conversion_type == "CSV":
+              df.to_csv(buffer, index=False)
+              file_name = file.name.rsplit(".", 1)[0] + ".csv"
+              mime_type = "text/csv"
 
-        buffer.seek(0)
+           elif conversion_type == "Excel":
+              df.to_excel(buffer, index=False, engine='xlsxwriter')
+              file_name = file.name.rsplit(".", 1)[0] + ".xlsx"
+              mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+           buffer.seek(0)
+        
+           st.download_button(
+              label=f"Download {file.name} as {conversion_type}",
+              data=buffer,
+              file_name=file_name,
+              mime=mime_type
+            )
 
-        st.download_button(
-          label=f"Download {file.name} as {conversion_type}",
-           data=buffer,
-          file_name=file_name,
-          mime=mime_type
-    )
 
 st.success("all files procesed successfully!")
